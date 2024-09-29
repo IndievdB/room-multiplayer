@@ -4,4 +4,4 @@ The `Host` object creates a room and allows the `Guest` object to connect to it 
 
 Programs interact with these objects through the `Send` functions.
 
-`index.html` and `main.js` show a very simple example of hwo to use these objects.
+`host.html` and `guest.html` show a very simple example of hwo to use these objects.
