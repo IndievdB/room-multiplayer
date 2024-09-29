@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Guest</title>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="room.js"></script>
+  </head>
+
+  <body>
+    <span id="name">...loading...</span>
+    <br>
+    <input type="text" id="join" placeholder="enter room code">
+    <button onclick="Join()">Join</button>
+    <br>
+    <input type="text" id="send" placeholder="message to send">
+    <button onclick="Send()">Send</button>
+  </body>
+
+  <script>
+    // Create a guest named John.
+    guest = new Guest("John", guestInit)
+
+    // Callback for when the guest is created.
+    function guestInit(id) {
+      console.log("Guest", id)
+      document.getElementById("name").innerHTML = id;
+    }
+
+    // Join a room.
+    function Join() {
+      room = document.getElementById("join").value;
+      guest.Join(room, gotMessage, closed)
+    }
+
+    // Callback for recieving data.
+    function gotMessage(message) {
+      console.log("Message", message)
+    }
+
+    // Callback for closing.
+    function closed(id) {
+      console.log("Closed", id)
+    }
+
+    // Send data to the room.
+    function Send() {
+      message = document.getElementById("send").value;
+      guest.Send(message)
+    }
+  </script>
+</html>

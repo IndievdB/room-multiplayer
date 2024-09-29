@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Host</title>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="room.js"></script>
+  </head>
+
+  <body>
+    <span id="room">...loading...</span>
+    <br>
+    <input type="text" id="send" placeholder="message to send">
+    <button onclick="Send()">Send To First</button>
+    <br>
+    <input type="text" id="sendall" placeholder="message to send">
+    <button onclick="SendAll()">Send All</button>
+  </body>
+
+  <script>
+    // Create a host.
+    host = new Host(hostInit, guestOpen, guestClose, gotMessage);
+
+    // Callback for when the host is created.
+    function hostInit(id) {
+      console.log("Host", id)
+      document.getElementById("room").innerHTML = id;
+    }
+
+    // Callback for when a guest joins.
+    function guestOpen(id, name) {
+      console.log("Guest Open", id, name)
+    }
+
+    // Callback for when a guest leaves.
+    function guestClose(id) {
+      console.log("Guest Closed", id)
+    }
+
+    // Callback for when a message is recieved.
+    function gotMessage(guest, message) {
+      console.log("From", guest, "Message", message)
+    }
+    
+    // Send data to a particular guest (in this case the first guest).
+    function Send() {
+      message = document.getElementById("send").value;
+      guest = host.guests[0].id
+      host.Send(guest, message)
+    }
+
+    // Send data to all guests.
+    function SendAll() {
+      message = document.getElementById("sendall").value;
+      host.SendAll(message)
+    }
+  </script>
+</html>
